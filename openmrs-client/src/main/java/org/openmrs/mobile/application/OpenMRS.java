@@ -25,6 +25,7 @@ import com.activeandroid.Configuration;
 
 import net.sqlcipher.database.SQLiteDatabase;
 
+import org.mindrot.jbcrypt.BCrypt;
 import org.openmrs.mobile.api.FormListService;
 import org.openmrs.mobile.databases.OpenMRSDBOpenHelper;
 import org.openmrs.mobile.models.EncounterType;
@@ -104,6 +105,23 @@ public class OpenMRS extends Application {
         editor.commit();
     }
 
+    public void setHashedPassword(String hashedPassword) {
+        SharedPreferences.Editor editor = getOpenMRSSharedPreferences().edit();
+        editor.putString(ApplicationConstants.UserKeys.HASHED_PASSWORD, hashedPassword);
+        editor.commit();
+    }
+
+    public void setPasswordAndHashedPassword(String password) {
+        SharedPreferences.Editor editor = getOpenMRSSharedPreferences().edit();
+
+        String salt = BCrypt.gensalt(ApplicationConstants.DEFAULT_BCRYPT_ROUNDS);
+        String hashedPassword = BCrypt.hashpw(password, salt);
+
+        editor.putString(ApplicationConstants.UserKeys.PASSWORD, password);
+        editor.putString(ApplicationConstants.UserKeys.HASHED_PASSWORD, hashedPassword);
+        editor.commit();
+    }
+
     public void setServerUrl(String serverUrl) {
         SharedPreferences.Editor editor = getOpenMRSSharedPreferences().edit();
         editor.putString(ApplicationConstants.SERVER_URL, serverUrl);
@@ -153,6 +171,11 @@ public class OpenMRS extends Application {
     public String getPassword() {
         SharedPreferences prefs = getOpenMRSSharedPreferences();
         return prefs.getString(ApplicationConstants.UserKeys.PASSWORD, ApplicationConstants.EMPTY_STRING);
+    }
+
+    public String getHashedPassword() {
+        SharedPreferences prefs = getOpenMRSSharedPreferences();
+        return prefs.getString(ApplicationConstants.UserKeys.HASHED_PASSWORD, ApplicationConstants.EMPTY_STRING);
     }
 
     public String getServerUrl() {
@@ -241,6 +264,7 @@ public class OpenMRS extends Application {
         Map<String, String> infoMap = new HashMap<String, String>();
         infoMap.put(ApplicationConstants.UserKeys.USER_PERSON_NAME, prefs.getString(ApplicationConstants.UserKeys.USER_PERSON_NAME, ApplicationConstants.EMPTY_STRING));
         infoMap.put(ApplicationConstants.UserKeys.USER_UUID, prefs.getString(ApplicationConstants.UserKeys.USER_UUID, ApplicationConstants.EMPTY_STRING));
+        infoMap.put(ApplicationConstants.UserKeys.PASSWORD, prefs.getString(ApplicationConstants.UserKeys.PASSWORD, ApplicationConstants.EMPTY_STRING));
         return infoMap;
     }
 
@@ -280,6 +304,7 @@ public class OpenMRS extends Application {
         editor.remove(ApplicationConstants.SESSION_TOKEN);
         editor.remove(ApplicationConstants.AUTHORIZATION_TOKEN);
         clearCurrentLoggedInUserInfo();
+        editor.remove(ApplicationConstants.UserKeys.PASSWORD);
         editor.commit();
     }
 
