@@ -31,6 +31,7 @@ import retrofit2.Response;
 public class UserService {
 
     public void updateUserInformation(final String username) {
+        OpenMRS.getInstance().getOpenMRSLogger().d("HERE:");
         RestApi restApi = RestServiceBuilder.createService(RestApi.class);
         Call<Results<User>> call = restApi.getUserInfo(username);
         call.enqueue(new Callback<Results<User>>() {
@@ -64,6 +65,7 @@ public class UserService {
     }
 
     private void fetchFullUserInformation(String uuid) {
+        OpenMRS.getInstance().getOpenMRSLogger().d("HERE:");
         RestApi restApi = RestServiceBuilder.createService(RestApi.class);
         Call<User> call = restApi.getFullUserInfo(uuid);
         call.enqueue(new Callback<User>() {

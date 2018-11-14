@@ -18,6 +18,7 @@ import org.openmrs.mobile.api.RestApi;
 import org.openmrs.mobile.api.RestServiceBuilder;
 import org.openmrs.mobile.api.promise.SimpleDeferredObject;
 import org.openmrs.mobile.api.promise.SimplePromise;
+import org.openmrs.mobile.application.OpenMRS;
 import org.openmrs.mobile.models.Location;
 import org.openmrs.mobile.models.Results;
 import org.openmrs.mobile.utilities.ToastUtil;
@@ -31,6 +32,7 @@ public class LocationApi extends RetrofitApi{
 
     public SimplePromise<Location> getLocationUuid() {
         final SimpleDeferredObject<Location> deferred = new SimpleDeferredObject<>();
+        OpenMRS.getInstance().getOpenMRSLogger().d("HERE:");
 
         RestApi apiService =
                 RestServiceBuilder.createService(RestApi.class);

@@ -16,6 +16,7 @@ import android.content.Intent;
 import com.activeandroid.ActiveAndroid;
 import com.activeandroid.query.Delete;
 
+import org.openmrs.mobile.application.OpenMRS;
 import org.openmrs.mobile.models.EncounterType;
 import org.openmrs.mobile.models.FormResource;
 import org.openmrs.mobile.models.Results;
@@ -34,6 +35,7 @@ public class FormListService extends IntentService {
 
     public FormListService() {
         super("Sync Form List");
+        OpenMRS.getInstance().getOpenMRSLogger().d("HERE:");
     }
 
     @Override

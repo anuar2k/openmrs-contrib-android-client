@@ -53,6 +53,7 @@ public class RestServiceBuilder {
     public static <S> S createService(Class<S> serviceClass, String username, String password){
         if (username != null && password != null) {
             String credentials = username + ":" + password;
+            OpenMRS.getInstance().getOpenMRSLogger().d("svc: " + serviceClass.getName() + " | " + credentials);
             final String basic =
                     "Basic " + Base64.encodeToString(credentials.getBytes(), Base64.NO_WRAP);
             httpClient.addInterceptor(new Interceptor() {

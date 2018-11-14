@@ -67,6 +67,7 @@ public class PatientApi extends RetrofitApi{
         this.logger = new OpenMRSLogger();
         this.patientDao = new PatientDAO();
         this.locationApi = new LocationApi();
+        OpenMRS.getInstance().getOpenMRSLogger().d("HERE:");
         this.restApi = RestServiceBuilder.createService(RestApi.class);
     }
 

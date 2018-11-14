@@ -15,6 +15,7 @@ import org.openmrs.mobile.R;
 import org.openmrs.mobile.activities.settings.SettingsActivity;
 import org.openmrs.mobile.api.RestApi;
 import org.openmrs.mobile.api.RestServiceBuilder;
+import org.openmrs.mobile.application.OpenMRS;
 import org.openmrs.mobile.dao.ConceptDAO;
 import org.openmrs.mobile.models.Concept;
 import org.openmrs.mobile.models.Link;
@@ -49,6 +50,7 @@ public class ConceptDownloadService extends Service {
     }
 
     private void startDownload() {
+        OpenMRS.getInstance().getOpenMRSLogger().d("HERE:");
         RestApi service = RestServiceBuilder.createService(RestApi.class);
         Call<Results<SystemSetting>>  call = service.getSystemSettingsByQuery(
                 ApplicationConstants.SystemSettingKeys.WS_REST_MAX_RESULTS_ABSOLUTE,
@@ -99,6 +101,7 @@ public class ConceptDownloadService extends Service {
     }
 
     private void downloadConcepts(int startIndex) {
+        OpenMRS.getInstance().getOpenMRSLogger().d("HERE:");
         RestApi service = RestServiceBuilder.createService(RestApi.class);
         Call<Results<Concept>> call = service.getConcepts(maxConceptsInOneQuery, startIndex);
         call.enqueue(new Callback<Results<Concept>>() {

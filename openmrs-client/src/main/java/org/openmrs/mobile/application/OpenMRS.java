@@ -264,7 +264,6 @@ public class OpenMRS extends Application {
         Map<String, String> infoMap = new HashMap<String, String>();
         infoMap.put(ApplicationConstants.UserKeys.USER_PERSON_NAME, prefs.getString(ApplicationConstants.UserKeys.USER_PERSON_NAME, ApplicationConstants.EMPTY_STRING));
         infoMap.put(ApplicationConstants.UserKeys.USER_UUID, prefs.getString(ApplicationConstants.UserKeys.USER_UUID, ApplicationConstants.EMPTY_STRING));
-        infoMap.put(ApplicationConstants.UserKeys.PASSWORD, prefs.getString(ApplicationConstants.UserKeys.PASSWORD, ApplicationConstants.EMPTY_STRING));
         return infoMap;
     }
 
@@ -304,7 +303,7 @@ public class OpenMRS extends Application {
         editor.remove(ApplicationConstants.SESSION_TOKEN);
         editor.remove(ApplicationConstants.AUTHORIZATION_TOKEN);
         clearCurrentLoggedInUserInfo();
-        editor.remove(ApplicationConstants.UserKeys.PASSWORD);
+        //editor.remove(ApplicationConstants.UserKeys.PASSWORD);
         editor.commit();
     }
 

@@ -18,6 +18,7 @@ import org.openmrs.mobile.R;
 import org.openmrs.mobile.activities.BasePresenter;
 import org.openmrs.mobile.api.RestApi;
 import org.openmrs.mobile.api.RestServiceBuilder;
+import org.openmrs.mobile.application.OpenMRS;
 import org.openmrs.mobile.dao.VisitDAO;
 import org.openmrs.mobile.models.Encounter;
 import org.openmrs.mobile.models.Patient;
@@ -44,6 +45,7 @@ public class VisitDashboardPresenter extends BasePresenter implements VisitDashb
         this.mVisitDashboardView = mVisitDashboardView;
         this.visitDAO = new VisitDAO();
         this.visitId = id;
+        OpenMRS.getInstance().getOpenMRSLogger().d("HERE:");
         this.restApi = RestServiceBuilder.createService(RestApi.class);
         mVisitDashboardView.setPresenter(this);
     }

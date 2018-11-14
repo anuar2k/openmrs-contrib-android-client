@@ -17,6 +17,7 @@ import android.util.Log;
 import org.openmrs.mobile.R;
 import org.openmrs.mobile.activities.matchingpatients.MatchingPatientsActivity;
 import org.openmrs.mobile.api.retrofit.PatientApi;
+import org.openmrs.mobile.application.OpenMRS;
 import org.openmrs.mobile.dao.PatientDAO;
 import org.openmrs.mobile.models.Module;
 import org.openmrs.mobile.models.Patient;
@@ -68,6 +69,7 @@ public class PatientService extends IntentService {
         }
     }
     private void fetchSimilarPatients(final Patient patient, final PatientAndMatchesWrapper patientAndMatchesWrapper) {
+        OpenMRS.getInstance().getOpenMRSLogger().d("HERE:");
         RestApi restApi = RestServiceBuilder.createService(RestApi.class);
         Call<Results<Module>> moduleCall = restApi.getModules(ApplicationConstants.API.FULL);
         try {
@@ -88,6 +90,7 @@ public class PatientService extends IntentService {
 
     private void fetchPatientsAndCalculateLocally(Patient patient, PatientAndMatchesWrapper patientAndMatchesWrapper) throws IOException {
         calculatedLocally = true;
+        OpenMRS.getInstance().getOpenMRSLogger().d("HERE:");
         RestApi restApi = RestServiceBuilder.createService(RestApi.class);
         Call<Results<Patient>> patientCall = restApi.getPatients(patient.getPerson().getName().getGivenName(), ApplicationConstants.API.FULL);
         Response<Results<Patient>> resp = patientCall.execute();
@@ -103,6 +106,7 @@ public class PatientService extends IntentService {
 
     private void fetchSimilarPatientsFromServer(Patient patient, PatientAndMatchesWrapper patientAndMatchesWrapper) throws IOException {
         calculatedLocally = false;
+        OpenMRS.getInstance().getOpenMRSLogger().d("HERE:");
         RestApi restApi = RestServiceBuilder.createService(RestApi.class);
         Call<Results<Patient>> patientCall = restApi.getSimilarPatients(patient.toMap());
         Response<Results<Patient>> patientsResp = patientCall.execute();

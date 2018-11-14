@@ -19,6 +19,7 @@ import org.openmrs.mobile.activities.BasePresenter;
 import org.openmrs.mobile.api.RestApi;
 import org.openmrs.mobile.api.RestServiceBuilder;
 import org.openmrs.mobile.api.retrofit.PatientApi;
+import org.openmrs.mobile.application.OpenMRS;
 import org.openmrs.mobile.dao.PatientDAO;
 import org.openmrs.mobile.models.Patient;
 import org.openmrs.mobile.utilities.ApplicationConstants;
@@ -45,6 +46,7 @@ public class MatchingPatientsPresenter extends BasePresenter implements Matching
     public MatchingPatientsPresenter(MatchingPatientsContract.View view, Queue<PatientAndMatchingPatients> matchingPatientsList) {
         this.view = view;
         this.matchingPatientsList = matchingPatientsList;
+        OpenMRS.getInstance().getOpenMRSLogger().d("HERE:");
         this.restApi = RestServiceBuilder.createService(RestApi.class);
         this.patientDAO = new PatientDAO();
         this.patientApi = new PatientApi();

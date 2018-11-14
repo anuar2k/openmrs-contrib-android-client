@@ -17,6 +17,7 @@ import android.support.annotation.Nullable;
 import com.activeandroid.query.Select;
 
 import org.openmrs.mobile.api.retrofit.VisitApi;
+import org.openmrs.mobile.application.OpenMRS;
 import org.openmrs.mobile.dao.PatientDAO;
 import org.openmrs.mobile.dao.VisitDAO;
 import org.openmrs.mobile.listeners.retrofit.DefaultResponseCallbackListener;
@@ -40,6 +41,7 @@ public class EncounterService extends IntentService {
 
     public EncounterService() {
         super("Save Encounter");
+        OpenMRS.getInstance().getOpenMRSLogger().d("HERE:");
     }
 
     public void addEncounter(final Encountercreate encountercreate, @Nullable DefaultResponseCallbackListener callbackListener) {

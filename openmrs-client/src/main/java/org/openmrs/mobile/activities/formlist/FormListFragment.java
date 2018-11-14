@@ -32,6 +32,7 @@ import org.openmrs.mobile.activities.ACBaseFragment;
 import org.openmrs.mobile.activities.formdisplay.FormDisplayActivity;
 import org.openmrs.mobile.api.RestApi;
 import org.openmrs.mobile.api.RestServiceBuilder;
+import org.openmrs.mobile.application.OpenMRS;
 import org.openmrs.mobile.models.FormCreate;
 import org.openmrs.mobile.models.FormData;
 import org.openmrs.mobile.utilities.ApplicationConstants;
@@ -90,6 +91,7 @@ public class FormListFragment extends ACBaseFragment<FormListContract.Presenter>
 
     public Boolean formCreate(String uuid, String formName) {
         formCreateFlag = false;
+        OpenMRS.getInstance().getOpenMRSLogger().d("HERE:");
         RestApi apiService = RestServiceBuilder.createService(RestApi.class);
 
         if (formName.contains("admission")) {

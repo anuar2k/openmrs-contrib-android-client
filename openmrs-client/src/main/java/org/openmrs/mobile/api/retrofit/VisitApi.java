@@ -50,6 +50,7 @@ public class VisitApi {
     private EncounterDAO encounterDAO;
 
     public VisitApi() {
+        OpenMRS.getInstance().getOpenMRSLogger().d("HERE:");
         restApi = RestServiceBuilder.createService(RestApi.class);
         visitDAO = new VisitDAO();
         locationDAO = new LocationDAO();

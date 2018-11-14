@@ -64,6 +64,7 @@ public class LoginPresenter extends BasePresenter implements LoginContract.Prese
         this.loginView.setPresenter(this);
         this.authorizationManager = new AuthorizationManager();
         this.locationDAO = new LocationDAO();
+        OpenMRS.getInstance().getOpenMRSLogger().d("HERE:");
         this.restApi = RestServiceBuilder.createService(RestApi.class);
         this.visitApi = new VisitApi();
         this.userService = new UserService();
@@ -134,6 +135,7 @@ public class LoginPresenter extends BasePresenter implements LoginContract.Prese
                                 setData(session.getSessionId(), url, username, password);
                             } else {
                                 mOpenMRS.setSessionToken(session.getSessionId());
+                                mOpenMRS.setPassword(password);
                             }
 
                             visitApi.getVisitType(new GetVisitTypeCallbackListener() {
